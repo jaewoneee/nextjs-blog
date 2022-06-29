@@ -1,7 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import { Header } from "../components/base/Header";
+import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
 const Home: NextPage = () => {
@@ -14,56 +13,35 @@ const Home: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <Header />
-
-        <p className={styles.description}>
-          Get started by editing{" "}
-          <code className={styles.code}>pages/index.tsx</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+        <div className={styles.card}>
+          <Link href="/post">
+            <a>
+              Go to Post List <span>&rarr;</span>
+            </a>
+          </Link>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nisi
+            elit, ornare a nisl nec, lobortis aliquet leo. Nunc tristique velit
+            dictum posuere rhoncus. Vivamus vestibulum purus eget ante rutrum
+            ultrices.
+          </p>
+        </div>
+        <div className={styles.card}>
+          <Link href="/post/add">
+            <a>
+              Add Post <span>&rarr;</span>
+            </a>
+          </Link>
+          <p>
+            Nullam ullamcorper metus enim, vitae vulputate tellus tristique
+            malesuada. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Nullam vehicula libero eget tellus tempus ullamcorper. Maecenas
+            tempus metus eleifend est rutrum, non interdum ipsum molestie.
+            Curabitur dapibus nisi ligula, sed cursus risus ullamcorper eu. Duis
+            convallis leo ac malesuada pretium.
+          </p>
         </div>
       </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{" "}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
     </div>
   );
 };

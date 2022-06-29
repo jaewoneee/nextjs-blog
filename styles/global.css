@@ -1,45 +1,54 @@
 @font-face {
-  font-family: "Montserrat";
+  font-family: "Pretendard";
   font-weight: 300;
-  src: url("/fonts/Montserrat-Light.woff2") format("woff2");
+  src: url("/fonts/Pretendard-Light.woff2") format("woff2");
   font-display: block;
 }
 @font-face {
-  font-family: "Montserrat";
+  font-family: "Pretendard";
   font-weight: 400;
-  src: url("/fonts/Montserrat-Regular.woff2") format("woff2");
+  src: url("/fonts/Pretendard-Regular.woff2") format("woff2");
   font-display: block;
 }
 @font-face {
-  font-family: "Montserrat";
+  font-family: "Pretendard";
   font-weight: 500;
-  src: url("/fonts/Montserrat-Medium.woff2") format("woff2");
+  src: url("/fonts/Pretendard-Medium.woff2") format("woff2");
   font-display: block;
 }
 @font-face {
-  font-family: "Montserrat";
+  font-family: "Pretendard";
   font-weight: 600;
-  src: url("/fonts/Montserrat-SemiBold.woff2") format("woff2");
+  src: url("/fonts/Pretendard-SemiBold.woff2") format("woff2");
   font-display: block;
 }
 @font-face {
-  font-family: "Montserrat";
+  font-family: "Pretendard";
   font-weight: 700;
-  src: url("/fonts/Montserrat-Bold.woff2") format("woff2");
+  src: url("/fonts/Pretendard-Bold.woff2") format("woff2");
   font-display: block;
 }
 @font-face {
-  font-family: "Montserrat";
+  font-family: "Pretendard";
   font-weight: 800;
-  src: url("/fonts/Montserrat-ExtraBold.woff2") format("woff2");
+  src: url("/fonts/Pretendard-ExtraBold.woff2") format("woff2");
   font-display: block;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: "Montserrat", sans-serif;
+  width: 96%;
+  height: 100vh;
+  margin: 0 auto;
+  font-family: "Pretendard", sans-serif;
+  background-color: var(--blue-light);
+  color: #111111;
 }
 
 a {
@@ -47,6 +56,30 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+button {
+  cursor: pointer;
+}
+
+li {
+  list-style: none;
+}
+
+:root {
+  --blue-main: #2121e6d4;
+  --blue-sub: #4b7bf5;
+  --blue-light: #79a9f5;
+  --blue-pale: #c2e2f5;
+}
+
+input,
+textarea,
+button {
+  font-family: "Pretendard", sans-serif;
+  background-color: transparent;
+  border: 0;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
 }

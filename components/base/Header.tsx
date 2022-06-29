@@ -1,15 +1,20 @@
 import Link from "next/link";
+import styles from "./Header.module.css";
 
 export function Header() {
   return (
-    <header>
+    <header id={styles.header}>
       <h1>
         <Link href="/">
-          <a>ONEDAY</a>
+          <a id={styles.logo}>
+            ONE
+            <br />
+            DAY
+          </a>
         </Link>
       </h1>
       <Link href="/post/add">
-        <a>+</a>
+        <a className={styles.addBtn}>+</a>
       </Link>
     </header>
   );

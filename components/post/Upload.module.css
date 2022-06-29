@@ -1,0 +1,71 @@
+#upload {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.fileUploadBox > input {
+  display: none;
+}
+.fileUploadBox label {
+  cursor: pointer;
+  width: 500px;
+  height: 300px;
+  display: inline-block;
+  background-color: var(--blue-sub);
+  color: var(--blue-pale);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+}
+
+.fileUploadBox label span {
+  width: 100%;
+  display: block;
+  text-align: center;
+}
+
+.fileUploadBox img {
+  cursor: pointer;
+  position: relative;
+}
+
+.textUploadBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.textUploadBox *:not(.buttonRow, button) {
+  border-bottom: 1px solid var(--blue-pale);
+  padding: 15px 10px;
+  resize: none;
+}
+.textUploadBox *:not(button)::placeholder {
+  color: var(--blue-pale);
+}
+.textUploadBox .buttonRow {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+.textUploadBox button {
+  background-color: var(--blue-sub);
+  border-radius: 4px;
+  padding: 15px 10px;
+  color: #fff;
+  font-weight: 600;
+  width: 150px;
+  transition: all 0.2s linear;
+}
+
+.textUploadBox button:first-child:hover {
+  background-color: var(--blue-main);
+}
+
+.textUploadBox button:last-child {
+  background-color: transparent;
+  border: 1px solid var(--blue-sub);
+}
+.textUploadBox button:last-child:hover {
+  border-color: var(--blue-main);
+}

@@ -1,0 +1,36 @@
+.postItem {
+  width: 400px;
+  display: block;
+}
+.postItem img {
+  transform: scale(1);
+  transition: all 0.2s linear;
+}
+.postItem:hover img {
+  transform: scale(1.1);
+}
+.postInfoBox * {
+  display: block;
+}
+.postInfoBox .date {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.15rem;
+  color: var(--blue-pale);
+  margin-top: 0.4rem;
+}
+.postInfoBox .title {
+  font-weight: 600;
+  font-size: 1.3rem;
+  margin-block: 0.4rem;
+}
+.postInfoBox .summary {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  line-height: 1.5;
+}

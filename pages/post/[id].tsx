@@ -1,3 +1,3 @@
 export default function PostDetail() {
-  return <div>wef</div>;
+  return <div>post id</div>;
 }
