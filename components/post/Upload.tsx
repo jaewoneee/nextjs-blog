@@ -36,14 +36,14 @@ export default function PostUpload() {
             </label>
           </>
         ) : (
-          <Image
-            src={src}
-            alt="thumbnail"
-            width={500}
-            height={300}
-            objectFit="cover"
-            onClick={() => setSrc("")}
-          />
+          <div className={styles.imageBox} onClick={() => setSrc("")}>
+            <Image
+              src={src}
+              alt="thumbnail"
+              objectFit="contain"
+              layout="fill"
+            />
+          </div>
         )}
       </div>
       <div className={styles.textUploadBox}>
