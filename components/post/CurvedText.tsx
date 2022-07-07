@@ -31,7 +31,7 @@ export default function CurvedText() {
           <textPath xlinkHref="#textcircle">Welcome Stranger!</textPath>
         </text>
         <text dy="100" textLength="820" className="second-text">
-          <textPath xlinkHref="#textcircle">What makes you come here?</textPath>
+          <textPath xlinkHref="#textcircle">What brings you here?</textPath>
         </text>
       </svg>
       <style jsx>{`

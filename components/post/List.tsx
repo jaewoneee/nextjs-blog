@@ -1,13 +1,35 @@
+import { gql, useQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./List.module.css";
 
+type PostTypes = {
+  id: string;
+  date: string;
+  title: string;
+  content: string;
+};
+
+const Q_POSTLIST = gql`
+  query {
+    post {
+      id
+      date
+      title
+      content
+    }
+  }
+`;
+
 export default function PostList() {
+  const { loading, error, data } = useQuery(Q_POSTLIST);
+  const posts = data ? data.post : [];
+
   return (
     <ul id={styles.list}>
-      {Array.from({ length: 5 }).map((v, i) => (
-        <li className={styles.postItem} key={`item${i + 1}`}>
-          <Link href="/post/123">
+      {posts.map((v: PostTypes) => (
+        <li className={styles.postItem} key={v.id}>
+          <Link href={`/post/${v.id}`}>
             <a>
               <span className={styles.imageBox}>
                 <Image
@@ -19,23 +41,9 @@ export default function PostList() {
               </span>
 
               <span className={styles.postInfoBox}>
-                <span className={styles.date}>22.11.11</span>
-                <span className={styles.title}>아니 근데 솔직히 진짜</span>
-                <span className={styles.summary}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Maecenas eleifend est massa, et dictum odio tempus et. Fusce
-                  sit amet ex dapibus, dictum lectus in, finibus ante. Proin
-                  eget mi id eros vulputate pulvinar a vel lorem. Ut diam nibh,
-                  ultricies eget scelerisque non, sagittis nec tortor. Curabitur
-                  ut fermentum sem. Fusce eu mattis quam, sit amet vehicula
-                  ante. Mauris sagittis tincidunt tincidunt. Nullam nisl justo,
-                  dictum quis sollicitudin sed, venenatis quis ante. Sed
-                  eleifend elementum libero et aliquet. Sed rhoncus faucibus
-                  ipsum, quis malesuada leo ullamcorper eu. Nullam varius
-                  gravida ipsum sit amet consequat. Nam neque libero,
-                  pellentesque nec blandit quis, egestas quis erat. Phasellus
-                  hendrerit suscipit mollis. Quisque nec luctus nisi.
-                </span>
+                <span className={styles.date}>{v.date}</span>
+                <span className={styles.title}>{v.title}</span>
+                <span className={styles.summary}>{v.content}</span>
               </span>
             </a>
           </Link>

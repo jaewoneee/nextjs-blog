@@ -9,7 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "3.4.17",
+    "@apollo/react-hooks": "^4.0.0",
+    "@nexus/schema": "^0.20.1",
     "@types/styled-jsx": "^3.4.4",
+    "apollo-server-micro": "2.18.2",
+    "graphql": "15.8",
     "next": "^12.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
