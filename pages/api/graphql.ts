@@ -1,5 +1,8 @@
 import { ApolloServer } from "apollo-server-micro";
 import { makeSchema, objectType, stringArg } from "@nexus/schema";
+import { PostMutation } from "./mutation";
+import { context } from "./context";
+import { join } from "path";
 
 const Post = objectType({
   name: "Post",
@@ -14,42 +17,20 @@ const Post = objectType({
 const Query = objectType({
   name: "Query",
   definition(t) {
-    t.list.field("post", {
+    t.list.field("posts", {
       type: "Post",
-      resolve: (_, args) => {
-        return [
-          {
-            id: 1,
-            date: "22.07.07",
-            title: "아니근데 솔직히 진짜",
-            content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nisi elit, ornare a nisl nec, lobortis aliquet leo. Nunc tristique velit dictum posuere rhoncus. Vivamus vestibulum purus eget ante rutrum ultrices.",
-          },
-          {
-            id: 2,
-            date: "22.07.07",
-            title: "아니근데모닉",
-            content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nisi elit, ornare a nisl nec, lobortis aliquet leo. Nunc tristique velit dictum posuere rhoncus. Vivamus vestibulum purus eget ante rutrum ultrices.",
-          },
-          {
-            id: 3,
-            date: "22.07.07",
-            title: "했다!!!!!!",
-            content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nisi elit, ornare a nisl nec, lobortis aliquet leo. Nunc tristique velit dictum posuere rhoncus. Vivamus vestibulum purus eget ante rutrum ultrices.",
-          },
-        ];
+      resolve: (_, args, ctx) => {
+        return ctx.db.posts;
       },
     });
   },
 });
 
 const schema = makeSchema({
-  types: [Query, Post],
+  types: [Query, Post, PostMutation],
 });
 
-const server = new ApolloServer({ schema });
+const server = new ApolloServer({ schema, context });
 
 const handler = server.createHandler({ path: "/api/graphql" });
 

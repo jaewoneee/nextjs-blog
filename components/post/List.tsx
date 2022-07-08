@@ -2,17 +2,11 @@ import { gql, useQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./List.module.css";
-
-type PostTypes = {
-  id: string;
-  date: string;
-  title: string;
-  content: string;
-};
+import { PostTypes } from "../../pages/api/db";
 
 const Q_POSTLIST = gql`
   query {
-    post {
+    posts {
       id
       date
       title
@@ -23,7 +17,7 @@ const Q_POSTLIST = gql`
 
 export default function PostList() {
   const { loading, error, data } = useQuery(Q_POSTLIST);
-  const posts = data ? data.post : [];
+  const posts = data ? data.posts : [];
 
   return (
     <ul id={styles.list}>
