@@ -23,7 +23,7 @@ export default function PostList() {
     <ul id={styles.list}>
       {posts.map((v: PostTypes) => (
         <li className={styles.postItem} key={v.id}>
-          <Link href={`/post/${v.id}`}>
+          <Link href={{ pathname: "/post", query: { id: v.id } }}>
             <a>
               <span className={styles.imageBox}>
                 <Image

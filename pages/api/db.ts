@@ -21,14 +21,7 @@ export const db: DB = {
     {
       id: "2",
       date: "22.07.07",
-      title: "아니근데모닉",
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nisi elit, ornare a nisl nec, lobortis aliquet leo. Nunc tristique velit dictum posuere rhoncus. Vivamus vestibulum purus eget ante rutrum ultrices.",
-    },
-    {
-      id: "3",
-      date: "22.07.07",
-      title: "했다!!!!!!",
+      title: "오ㅐ .. 안 돼?",
       content:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nisi elit, ornare a nisl nec, lobortis aliquet leo. Nunc tristique velit dictum posuere rhoncus. Vivamus vestibulum purus eget ante rutrum ultrices.",
     },

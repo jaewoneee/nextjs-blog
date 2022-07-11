@@ -12,12 +12,13 @@ export const PostMutation = extendType({
       },
       resolve: async (_root, args, ctx) => {
         const draft = {
-          id: ctx.db.posts.length + 1,
+          id: `${ctx.db.posts.length + 1}`,
           date: args.date,
           title: args.title, // 3
           content: args.content, // 3
         };
         await ctx.db.posts.push(draft);
+        console.log(ctx.db.posts);
         return draft;
       },
     });

@@ -6,7 +6,7 @@ export default function CardLink() {
   const cardData = useMemo(
     () => [
       {
-        path: "/post",
+        path: "/list",
         title: "Go to Post List",
         text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nisi
   elit, ornare a nisl nec, lobortis aliquet leo. Nunc tristique velit

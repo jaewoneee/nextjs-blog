@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server-micro";
 import { makeSchema, objectType, stringArg } from "@nexus/schema";
-import { PostMutation } from "./mutation";
+import { PostMutation } from "./schema";
 import { context } from "./context";
 import { join } from "path";
 

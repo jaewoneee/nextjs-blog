@@ -1,5 +1,5 @@
-import PostList from "../../components/post/List";
+import PostDetail from "../../components/post/Detail";
 
-export default function PostIndex() {
-  return <PostList />;
+export default function PostDetailPage() {
+  return <PostDetail />;
 }
