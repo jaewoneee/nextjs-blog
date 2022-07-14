@@ -1,29 +1,91 @@
-import { gql } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import Router, { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import { PostTypes } from "../../pages/api/schema";
 import styles from "./Detail.module.css";
 
-// const GET_POSTITEM = gql`
-//   query{
-//     posts{
-
-//     }
-//   }
-// `;
-
+// 페이지 id(쿼리스트링)에 해당하는 포스트 가져오기
+const GET_POST = gql`
+  query GetPostItem($id: String!) {
+    posts(id: $id) {
+      id
+      date
+      title
+      content
+    }
+  }
+`;
+const UPDATE_POST = gql`
+  query UpdatePostItem {
+    posts(id: $id) {
+      id
+      date
+      title
+      content
+    }
+  }
+`;
+const REMOVE_POST = gql`
+  mutation RemovePost($id: String!) {
+    removePost(id: $id) {
+      id
+    }
+  }
+`;
 export default function PostDetail() {
   const { query } = useRouter();
+  const id = query.id;
+  const {
+    data,
+    loading,
+    error,
+    client: { cache },
+  } = useQuery(GET_POST, {
+    variables: { id },
+  });
+  const [post] = data ? data.posts : [];
+  const [isEditable, setEditable] = useState(false);
+  const [newTitle, setNewTitle] = useState("");
+  const [newContent, setNewContent] = useState("");
+  const [removePost] = useMutation(REMOVE_POST, {
+    update(cache, { data: { removePost } }) {
+      cache.modify({
+        fields: {
+          posts() {
+            cache.writeFragment({
+              data: removePost,
+              fragment: gql`
+                fragment removePost on Post {
+                  id
+                }
+              `,
+            });
+          },
+        },
+      });
+    },
+  });
 
-  useEffect(() => {
-    console.log(query);
-  }, []);
+  const handleRemove = () => {
+    removePost({
+      variables: { id },
+    });
+    Router.push("/list");
+  };
 
   return (
     <div id={styles.detail}>
       <div className={styles.inner}>
-        <h2>title</h2>
+        {!isEditable ? (
+          <h2>{post?.title}</h2>
+        ) : (
+          <input
+            placeholder={post?.title}
+            onChange={(e) => setNewTitle(e.target.value)}
+          />
+        )}
         <div className={styles.imageBox}>
           <Image
             src="/test2.jpeg"
@@ -32,15 +94,26 @@ export default function PostDetail() {
             alt="thumbnail"
           />
         </div>
-        <p>세상은 호락호락하지 않다 괜찮다 나도 호락호락하지 않으니깐</p>
+        {!isEditable ? (
+          <p>{post?.content}</p>
+        ) : (
+          <textarea
+            className={styles.textBox}
+            onChange={(e) => setNewContent(e.target.value)}
+          >
+            {post?.content}
+          </textarea>
+        )}
         <div className={styles.buttonBox}>
+          <div>
+            <button onClick={() => setEditable((state) => !state)}>
+              {isEditable ? "Complete" : "Edit"}
+            </button>
+            <button onClick={handleRemove}>delete</button>
+          </div>
           <Link href="/list">
             <a>List</a>
           </Link>
-          <div>
-            <button>edit</button>
-            <button>delete</button>
-          </div>
         </div>
       </div>
     </div>

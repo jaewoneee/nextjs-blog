@@ -2,17 +2,22 @@
   width: 60%;
   margin: 0 auto;
 }
-.inner h2 {
+.inner h2,
+.inner input {
+  width: 100%;
   padding-bottom: 0.5rem;
   border-bottom: 2px solid var(--blue-sub);
   color: var(--blue-main);
+  font-size: 1.5rem;
 }
 
-.inner p {
+.inner p,
+.inner textarea {
   line-height: 1.8;
   word-wrap: break-word;
   padding-bottom: 2rem;
   border-bottom: 2px solid var(--blue-sub);
+  font-size: 1rem;
 }
 .imageBox {
   width: 100%;
@@ -20,7 +25,11 @@
   position: relative;
   margin: 2rem 0;
 }
-
+.textBox {
+  width: 100%;
+  height: 200px;
+  resize: none;
+}
 .buttonBox {
   display: flex;
   justify-content: space-between;

@@ -1,8 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
 import Image from "next/image";
 import Link from "next/link";
+import { PostTypes } from "../../pages/api/schema";
 import styles from "./List.module.css";
-import { PostTypes } from "../../pages/api/db";
+
+// 포스트 리스트 모두 가져오기
 
 const Q_POSTLIST = gql`
   query {

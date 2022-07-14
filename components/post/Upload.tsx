@@ -5,6 +5,7 @@ import Router from "next/router";
 import { useEffect, useState } from "react";
 import styles from "./Upload.module.css";
 
+// 포스트 업로드하기(Create)
 const M_CREATE = gql`
   mutation CreatePost($date: String!, $title: String!, $content: String!) {
     createPost(date: $date, title: $title, content: $content) {
@@ -30,10 +31,10 @@ export default function PostUpload() {
               fragment: gql`
                 fragment NewPost on Post {
                   id
-                  type
                 }
               `,
             });
+            console.log("create===>", newPost);
             return [...existingPosts, newPost];
           },
         },

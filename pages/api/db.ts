@@ -1,9 +1,4 @@
-export type PostTypes = {
-  id: string;
-  date: string;
-  title: string;
-  content: string;
-};
+import { PostTypes } from "./schema";
 
 export interface DB {
   posts: PostTypes[];
