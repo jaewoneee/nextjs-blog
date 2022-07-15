@@ -45,6 +45,7 @@ export const CreatePost = extendType({
           title: args.title,
           content: args.content,
         };
+        console.log("wef");
         await ctx.db.posts.push(draft);
         return draft;
       },

@@ -37,12 +37,7 @@ const REMOVE_POST = gql`
 export default function PostDetail() {
   const { query } = useRouter();
   const id = query.id;
-  const {
-    data,
-    loading,
-    error,
-    client: { cache },
-  } = useQuery(GET_POST, {
+  const { data, loading, error } = useQuery(GET_POST, {
     variables: { id },
   });
   const [post] = data ? data.posts : [];

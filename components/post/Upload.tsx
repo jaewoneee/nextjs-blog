@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import Image from "next/image";
 import Router from "next/router";
 import { useEffect, useState } from "react";
+import client from "../../apollo-client";
 import styles from "./Upload.module.css";
 
 // 포스트 업로드하기(Create)
-const M_CREATE = gql`
+const ADD_POST = gql`
   mutation CreatePost($date: String!, $title: String!, $content: String!) {
     createPost(date: $date, title: $title, content: $content) {
       id
@@ -21,26 +22,7 @@ export default function PostUpload() {
   const [src, setSrc] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [createPost, { data, loading, error }] = useMutation(M_CREATE, {
-    update(cache, { data: { createPost } }) {
-      cache.modify({
-        fields: {
-          posts(existingPosts = []) {
-            const newPost = cache.writeFragment({
-              data: createPost,
-              fragment: gql`
-                fragment NewPost on Post {
-                  id
-                }
-              `,
-            });
-            console.log("create===>", newPost);
-            return [...existingPosts, newPost];
-          },
-        },
-      });
-    },
-  });
+  const [createPost] = useMutation(ADD_POST);
 
   const clickHandler = () => {
     createPost({
@@ -48,6 +30,15 @@ export default function PostUpload() {
         date: new Date().toISOString().slice(0, 10).replaceAll("-", "."),
         title,
         content,
+      },
+      update(cache, { data: createPost }) {
+        cache.modify({
+          fields: {
+            posts(existingPosts = []) {
+              return [...existingPosts, createPost];
+            },
+          },
+        });
       },
     });
     Router.push("/list");
