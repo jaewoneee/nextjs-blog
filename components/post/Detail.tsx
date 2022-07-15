@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { PostTypes } from "../../pages/api/schema";
 import styles from "./Detail.module.css";
 
 // 페이지 id(쿼리스트링)에 해당하는 포스트 가져오기
@@ -17,16 +16,7 @@ const GET_POST = gql`
     }
   }
 `;
-const UPDATE_POST = gql`
-  query UpdatePostItem {
-    posts(id: $id) {
-      id
-      date
-      title
-      content
-    }
-  }
-`;
+
 const REMOVE_POST = gql`
   mutation RemovePost($id: String!) {
     removePost(id: $id) {
@@ -34,17 +24,27 @@ const REMOVE_POST = gql`
     }
   }
 `;
+
 export default function PostDetail() {
   const { query } = useRouter();
   const id = query.id;
-  const { data, loading, error } = useQuery(GET_POST, {
+  const {
+    data,
+    loading,
+    error,
+    client: { cache },
+  } = useQuery(GET_POST, {
     variables: { id },
   });
   const [post] = data ? data.posts : [];
   const [isEditable, setEditable] = useState(false);
-  const [newTitle, setNewTitle] = useState("");
-  const [newContent, setNewContent] = useState("");
+  const [newTitle, setNewTitle] = useState(post?.title);
+  const [newContent, setNewContent] = useState(post?.content);
   const [removePost] = useMutation(REMOVE_POST);
+
+  // useEffect(() => {
+  //   console.log("post=========>", post);
+  // }, [post]);
 
   const handleRemove = () => {
     removePost({
@@ -55,6 +55,24 @@ export default function PostDetail() {
         cache.gc();
       },
     });
+    Router.push("/list");
+  };
+
+  const handleUpdate = () => {
+    const result = cache.writeFragment({
+      id: `Post:${id}`,
+      fragment: gql`
+        fragment UpdatePost on Post {
+          title
+          content
+        }
+      `,
+      data: {
+        title: newTitle,
+        content: newContent,
+      },
+    });
+
     Router.push("/list");
   };
 
@@ -89,7 +107,11 @@ export default function PostDetail() {
         )}
         <div className={styles.buttonBox}>
           <div>
-            <button onClick={() => setEditable((state) => !state)}>
+            <button
+              onClick={
+                isEditable ? handleUpdate : () => setEditable((state) => !state)
+              }
+            >
               {isEditable ? "Complete" : "Edit"}
             </button>
             <button onClick={handleRemove}>delete</button>
