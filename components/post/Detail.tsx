@@ -83,7 +83,7 @@ export default function PostDetail() {
           <h2>{post?.title}</h2>
         ) : (
           <input
-            placeholder={post?.title}
+            defaultValue={post?.title}
             onChange={(e) => setNewTitle(e.target.value)}
           />
         )}
@@ -100,10 +100,9 @@ export default function PostDetail() {
         ) : (
           <textarea
             className={styles.textBox}
+            defaultValue={post?.content}
             onChange={(e) => setNewContent(e.target.value)}
-          >
-            {post?.content}
-          </textarea>
+          />
         )}
         <div className={styles.buttonBox}>
           <div>
