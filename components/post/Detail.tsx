@@ -49,28 +49,16 @@ export default function PostDetail() {
   const [isEditable, setEditable] = useState(false);
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
-  const [removePost] = useMutation(REMOVE_POST, {
-    update(cache, { data: { removePost } }) {
-      cache.modify({
-        fields: {
-          posts() {
-            cache.writeFragment({
-              data: removePost,
-              fragment: gql`
-                fragment removePost on Post {
-                  id
-                }
-              `,
-            });
-          },
-        },
-      });
-    },
-  });
+  const [removePost] = useMutation(REMOVE_POST);
 
   const handleRemove = () => {
     removePost({
       variables: { id },
+      update(cache) {
+        const normalizedId = cache.identify({ id, __typename: "Post" });
+        cache.evict({ id: normalizedId });
+        cache.gc();
+      },
     });
     Router.push("/list");
   };
