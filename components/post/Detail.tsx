@@ -42,10 +42,6 @@ export default function PostDetail() {
   const [newContent, setNewContent] = useState(post?.content);
   const [removePost] = useMutation(REMOVE_POST);
 
-  // useEffect(() => {
-  //   console.log("post=========>", post);
-  // }, [post]);
-
   const handleRemove = () => {
     removePost({
       variables: { id },
@@ -59,7 +55,7 @@ export default function PostDetail() {
   };
 
   const handleUpdate = () => {
-    const result = cache.writeFragment({
+    cache.writeFragment({
       id: `Post:${id}`,
       fragment: gql`
         fragment UpdatePost on Post {
